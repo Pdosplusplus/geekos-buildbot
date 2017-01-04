@@ -76,6 +76,9 @@ $ buildbot start master
 ```bash
 $ buildslave create-slave BASEDIR MASTERHOST:PORT SLAVENAME PASSWORD
 
+
+>
+```bash
 $ buildslave create-slave builder localhost:9989 builder 11
 ```
 
@@ -131,7 +134,7 @@ localhost:8010
 
 To basic config created a lists to each component which will be explained
 
-Add in master.cfg:
+Add in the file ```master.cfg```:
 
 >
 ```python
@@ -153,19 +156,14 @@ c['protocols'] = {'pb': {'port': 9989}}
 
 forced_builders = []
 
-######## CONFIGURACION VCS  
-
 vcs = {}
 
 vcs['branches'] = ['master', 'desarrollo']
 
-# rama de desarrollo, de momento la unica donde se construyen paquetes
 vcs['dev'] = 'desarrollo'
 
-# Cada cuanto tiempo buildbot espera por nuevos cambios en el git
 vcs['time'] = 60
 
-# Cada cuanto tiempo buildbot revisar cambios en el git
 vcs['pollinterval'] = 60 
 ```
 
@@ -246,7 +244,7 @@ c['change_source'].append(
 Into to file ```master.cfg```:
 
 >
-```bash
+```python
 from buildbot.steps.shell import SetPropertyFromCommand, ShellCommand
 from buildbot.process.properties import WithProperties, Interpolate
 from buildbot.process.factory import BuildFactory
@@ -380,7 +378,6 @@ Into the file ```master.cfg```:
 
 >
 ```python
-##################### FUNCTIONS GENERICS
 
 def parse_changelog(rc, stdout, stderr):
     '''
