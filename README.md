@@ -75,7 +75,8 @@ $ buildbot start master
 >
 ```bash
 $ buildslave create-slave BASEDIR MASTERHOST:PORT SLAVENAME PASSWORD
-
+```
+or 
 
 >
 ```bash
@@ -136,7 +137,7 @@ To basic config created a lists to each component which will be explained
 
 Add in the file ```master.cfg```:
 
->
+
 ```python
 c = BuildmasterConfig = {}
 
@@ -219,7 +220,7 @@ In this example uses a repo private
 
 Into to the file ```master.cfg```:
 
->
+
 ```python
 from buildbot.changes.gitpoller import GitPoller
 
@@ -243,7 +244,7 @@ c['change_source'].append(
 
 Into to file ```master.cfg```:
 
->
+
 ```python
 from buildbot.steps.shell import SetPropertyFromCommand, ShellCommand
 from buildbot.process.properties import WithProperties, Interpolate
@@ -272,7 +273,7 @@ all_steps = [
 
 2 - Added the builder
 
->
+
 ```bash
 from buildbot.config import BuilderConfig
 from buildbot.process.factory import BuildFactory
@@ -297,7 +298,7 @@ The parameters are:
 * treeStableTimer.
 * builderNames
 
->
+
 ```python
 sbched = SingleBranchScheduler(
         name=package,
@@ -310,28 +311,28 @@ sbched = SingleBranchScheduler(
 
 #### Add Scheduler to all schedulers:
 
->
+
 ```python
 c['schedulers'].append(sbched)
 ```
 
 #### Also we can add the option to the builder to that can be forced his construction or execution, for this:
 
->
+
 ```python
 forced_builders.append(package)
 ``` 
 
 #### And now we created a ForceScheduler that contain all forced builders:
 
->
+
 ```python
 forced_scheduler = ForceScheduler(name='Forzar', builderNames = forced_builders)
 ```
 
 #### And we add the force_builders to the schedulers:
 
->
+
 ```python
 c['schedulers'].append(forced_scheduler)
 ```
@@ -344,7 +345,7 @@ We will create a Object Authz with the configuration to access the buildbot into
 from buildbot.status import html
 from buildbot.status.web import authz, auth
 
->
+
 ```python
 authz_cfg=authz.Authz(
     # change any of these to True to enable; see the manual for more
@@ -364,7 +365,7 @@ authz_cfg=authz.Authz(
 
 We add to the WebStatus with the configuration saved in authz_cfg
 
->
+
 ```python
 c['status'].append(html.WebStatus(http_port=8010, authz=authz_cfg))
 ```
@@ -376,7 +377,7 @@ And to finish we add the functions generic
 
 Into the file ```master.cfg```:
 
->
+
 ```python
 
 def parse_changelog(rc, stdout, stderr):
